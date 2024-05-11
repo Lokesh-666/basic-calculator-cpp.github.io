@@ -17,14 +17,11 @@ double mul(double a, double b){
     return answer;
 }
 
-double divi(double a, double b){
-
-    if(b==0){
-        cout <<"Division by zero is not allowed";
-        return 0;
+double divi(double a, double b) {
+    if (b == 0) {
+        throw runtime_error("Division by zero is not allowed\n");
     }
-    double answer = a/b;
-    return answer;
+    return a / b;
 }
 
 int main(){
@@ -39,6 +36,9 @@ int main(){
     cout <<"Enter your command of action\n";
     char command;
     cin >> command;
+    // Convert the command to uppercase
+    command = toupper(command);
+    if(command=='E') {cout<<"Programe quits!!"<<endl; break;}
     cout << "Enter the first number: ";
     cin >> a;
     cout << "Enter the second number: ";
@@ -54,11 +54,15 @@ int main(){
             cout << "Multiplication of a and b is: " << mul(a,b)<<endl;
         break;
         case 'D':
-            cout << "Division of a and b is: " << divi(a,b)<<endl;
-            break;
-        case 'E':
-            cout<<"Programe quits!!"<<endl;
-
+                try {
+                    cout << "Division of a and b is: " << divi(a, b)<<endl;
+                } catch (const runtime_error& e) {
+                    cout << e.what();
+                }
+                break;
+        
+        default:
+            cout<<"Invalid Command\n"<<endl;
             break;
 
 }
